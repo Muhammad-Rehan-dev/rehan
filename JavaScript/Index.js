@@ -845,9 +845,9 @@ let AutoPlay = true;// Declaring AutoPlay Condition
 Run_current_time = () => {
     if(pause_btn.style.display=='flex'){// Cheack if song is playing
         setInterval(() => {
-            if(i==7){
-                i = 6;
-            }
+          if(i==All_songs.length){
+            i=All_songs.length-1;
+        }
             let current_minutes = Math.floor(All_songs[i].currentTime / 60);
             let current_seconds = Math.floor(All_songs[i].currentTime % 60);
             let current_time = current_minutes+'<b>:</b>'+current_seconds;
