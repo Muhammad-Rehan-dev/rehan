@@ -792,7 +792,9 @@ Next_song = () => {
         pause_btn.style.display = 'flex';
         play_btn.style.display = 'none';
     }
-   
+     if(i==All_songs.length){
+        i=All_songs.length-1;
+    }
     pause_btn.style.display = 'flex';
     play_btn.style.display = 'none';
     Run_current_time();
@@ -811,6 +813,9 @@ Song_time_changing = () => {
 // Song play/pause Function/Logic
 pause_btn.style.display = 'none';//Making Condition true 
 Play_Pause_song = () => {
+      if(i==All_songs.length){
+        i=All_songs.length-1;
+    }
     if (pause_btn.style.display == 'none') {  //if Song is Stoped
         pause_btn.style.display = 'flex';
         play_btn.style.display = 'none';
