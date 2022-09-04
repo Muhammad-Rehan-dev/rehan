@@ -841,13 +841,14 @@ keep_runing_thumb();
 // Ends 
 let AutoPlay = true;// Declaring AutoPlay Condition
 // This Function will show current time of song in minutes and seconds
+console.log(All_songs.length);
 
 Run_current_time = () => {
     if(pause_btn.style.display=='flex'){// Cheack if song is playing
-        setInterval(() => {
-          if(i==All_songs.length){
+        if(i==All_songs.length){
             i=All_songs.length-1;
         }
+        setInterval(() => {
             let current_minutes = Math.floor(All_songs[i].currentTime / 60);
             let current_seconds = Math.floor(All_songs[i].currentTime % 60);
             let current_time = current_minutes+'<b>:</b>'+current_seconds;
@@ -863,7 +864,6 @@ Run_current_time = () => {
             if(AutoPlay==true){
                 Autoplay_the_song();
             }
-            // console.clear();
         }, 1);
 }
 }
