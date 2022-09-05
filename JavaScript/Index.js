@@ -721,7 +721,11 @@ change_placeholder = () => {
 
 }
 change_placeholder();
-
+// Initially Audio container will be hidden when we click on listen button then it will show
+let audio_cont = document.getElementsByClassName('Audio_Player_container')[0];
+audio_cont.style.display='none';
+audio_cont.style.opacity='0';
+// ends 
 // Audio Player JavaScript 
 // Variables 
 let Song_name = document.getElementsByClassName('Song_name')[0];
@@ -763,11 +767,14 @@ let i = 0;
 
 Next_song = () => {
     i++;
+    if(i==All_songs.length){
+       i=i-1;
+    }
     All_songs[i].play();// Playin the next song by increasing i's value 
     slider.max = All_songs[i].duration;// Max value of slider will be max seconds of song
     All_songs[i].currentTime = 0;//starting from begining
-    Song_Total_duration.innerHTML = total_duration[i];
-    Song_name.innerHTML= Song_names[i];
+    Song_Total_duration.innerHTML = total_duration[i];// Total time will be according to song index
+    Song_name.innerHTML= Song_names[i];// Song will be according to song index
     Volume_change();
     --i;
     All_songs[i].pause();// Stoping the previous song be decreasing i's value
@@ -792,12 +799,10 @@ Next_song = () => {
         pause_btn.style.display = 'flex';
         play_btn.style.display = 'none';
     }
-     if(i==All_songs.length){
-        i=All_songs.length-1;
-    }
     pause_btn.style.display = 'flex';
     play_btn.style.display = 'none';
     Run_current_time();
+    Song_time_changing();
 }
 // Ends 
 // This Function will change song seconds according to slider's value 
@@ -813,9 +818,6 @@ Song_time_changing = () => {
 // Song play/pause Function/Logic
 pause_btn.style.display = 'none';//Making Condition true 
 Play_Pause_song = () => {
-      if(i==All_songs.length){
-        i=All_songs.length-1;
-    }
     if (pause_btn.style.display == 'none') {  //if Song is Stoped
         pause_btn.style.display = 'flex';
         play_btn.style.display = 'none';
@@ -850,10 +852,8 @@ console.log(All_songs.length);
 
 Run_current_time = () => {
     if(pause_btn.style.display=='flex'){// Cheack if song is playing
-        if(i==All_songs.length){
-            i=All_songs.length-1;
-        }
         setInterval(() => {
+          
             let current_minutes = Math.floor(All_songs[i].currentTime / 60);
             let current_seconds = Math.floor(All_songs[i].currentTime % 60);
             let current_time = current_minutes+'<b>:</b>'+current_seconds;
@@ -982,7 +982,7 @@ let Song_name_div = document.getElementsByClassName('song_plus_name')[0];
 let hide_in_mini = [audio_vol_sect,artist_div,Song_img,Repeat_button,Shuffle_button,song_duration_sect];
 // changing css 
 let audio_box = document.getElementsByClassName('Audio_player_box')[0];
-let audio_cont = document.getElementsByClassName('Audio_Player_container')[0];
+
 // Change audio box to small 
 mini_view_btn.addEventListener('click',()=>{
         for (element of hide_in_mini){
@@ -1020,4 +1020,14 @@ hide_audio_box_btn.addEventListener('click',()=>{
         hide_audio_box_btn.style.transform="rotate(0deg)";
     }
     
+});
+
+let listen_now_btn = document.getElementById('listen_now_btn');
+  audio_cont.style.opacity='0';
+listen_now_btn.addEventListener('click',()=>{
+    audio_cont.style.opacity='1';
+    audio_cont.style.transition='opacity .3s ease';
+   setTimeout(() => {
+    audio_cont.style.display='flex';
+    }, 1);
 });
