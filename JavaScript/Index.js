@@ -670,8 +670,8 @@ Show_dots_details = () => {
 
 
 // Place Holder Changing Every Second Function 
+let search_bar = document.getElementById("search_bar");
 change_placeholder = () => {
-    let search_bar = document.getElementById("search_bar");
     let cate_placeholder1 = 'Computers';
     let cate_placeholder2 = 'Grocery';
     let cate_placeholder3 = 'Animals';
@@ -723,8 +723,8 @@ change_placeholder = () => {
 change_placeholder();
 // Initially Audio container will be hidden when we click on listen button then it will show
 let audio_cont = document.getElementsByClassName('Audio_Player_container')[0];
-audio_cont.style.display='none';
-audio_cont.style.opacity='0';
+// audio_cont.style.display='none';
+// audio_cont.style.opacity='0';
 // ends 
 // Audio Player JavaScript 
 // Variables 
@@ -739,7 +739,6 @@ let song_hover_time = document.getElementById('slider_hover_time');
 // Volume
 let current_volume = document.getElementById('current_volume');
 let Volume_input = document.getElementById('volume_input');
-let current_vol_num = document.getElementById('current_volume_num');
 // Creating Audio Element With the help of JavaScript 
 let Dewana_song = new Audio();
 let Pasoori_song = new Audio();
@@ -749,6 +748,7 @@ let Santra = new Audio();
 let Wal_khattu = new Audio();
 let Cvrtoon = new Audio();
 let Liyakun = new Audio();
+let letmedown = new Audio();
 // Giving Source to them
 Dewana_song.src = 'Songs/Dewana.mp3';
 Pasoori_song.src = 'Songs/Pasoori.mp3';
@@ -758,13 +758,13 @@ Santra.src = 'Songs/Santra.mp3';
 Wal_khattu.src = 'Songs/wal_khattu.mp3';
 Cvrtoon.src = 'Songs/CVRTOON.mp3';
 Liyakun.src = 'Songs/Liyakun.mp3';
+letmedown.src = './Songs/letmedown.mp3';
 // Creating Array of these songs to play in sequence 
-const All_songs = [Dewana_song, Pasoori_song, Salah_uddin, Toh_phir, Santra, Wal_khattu,Cvrtoon,Liyakun];
-const total_duration = ['4<b>:</b>14', '3<b>:</b>46', '3<b>:</b>54', '4<b>:</b>30', '0<b>:</b>36', '5<b>:</b>12', '4<b>:</b>18','3<b>:</b>28']
-const Song_names = ['Dewana kr rha hai','Pasoori','Salah-ud-din Ayyubi sound','Toh phir aao mugh ko stao','Cvrtoon Fired','Wal khattu husaini','CVRTOON - İzmir Marşi','Liyakun - shamay'];
+const All_songs = [Dewana_song, Pasoori_song, Salah_uddin, Toh_phir, Santra, Wal_khattu,Cvrtoon,Liyakun,letmedown];
+const total_duration = ['4<b>:</b>14', '3<b>:</b>46', '3<b>:</b>54', '4<b>:</b>30', '0<b>:</b>36', '5<b>:</b>12', '4<b>:</b>18','3<b>:</b>28','3<b>:</b>01']
+const Song_names = ['Dewana kr rha hai','Pasoori','Salah-ud-din Ayyubi sound','Toh phir aao mugh ko stao','Cvrtoon Fired','Wal khattu husaini','CVRTOON - İzmir Marşi','Liyakun - shamay','Let me down slowly'];
 // Next and Previous Song Logic here 
 let i = 0;
-
 Next_song = () => {
     i++;
     if(i==All_songs.length){
@@ -846,10 +846,31 @@ keep_runing_thumb = () => {//to the songs current time
 }
 keep_runing_thumb();
 // Ends 
-let AutoPlay = true;// Declaring AutoPlay Condition
+let AutoPlay = false;// Declaring AutoPlay Condition
+let Repeat_button = document.getElementsByClassName('Repeat_button_div')[0];
+// AutoPlay function 
+Repeat_button.addEventListener('click', ChangeAutoPlay = ()=>{
+    if(AutoPlay==true){
+        AutoPlay=false;
+        Repeat_button.style.backgroundColor = 'transparent';
+    }
+    else if(AutoPlay==false){
+        AutoPlay=true;
+        Repeat_button.style.backgroundColor = 'rgba(0,0,0,.2)';
+    }
+});
+// Repeat Button hover effect 
+Repeat_button.addEventListener('mouseover',()=>{
+    if(AutoPlay==false){
+        Repeat_button.style.backgroundColor='rgba(5, 5, 5, 0.335)';
+    }
+});
+Repeat_button.addEventListener('mouseout',()=>{
+    if(AutoPlay==false){
+    Repeat_button.style.backgroundColor='transparent';
+    }
+});
 // This Function will show current time of song in minutes and seconds
-console.log(All_songs.length);
-
 Run_current_time = () => {
     if(pause_btn.style.display=='flex'){// Cheack if song is playing
         setInterval(() => {
@@ -871,9 +892,8 @@ Run_current_time = () => {
             }
         }, 1);
 }
-}
+};
 
-// Ends 
 // This Function Will reset the song if it is played 
 Reset_the_song =()=>{
     if(All_songs[i].currentTime==All_songs[i].duration){
@@ -918,42 +938,18 @@ play_pause_div.addEventListener('mouseout',Remove_Play_tool_tip);//Remove tool t
             // Volume Button 
 
 Volume_input.addEventListener('input',()=>{
-    current_vol_num.style.display='flex';
-    setInterval(()=>{
-        let vol_current = Volume_input.value/1.18/10+"%"
-        current_volume.style.width=vol_current;
-        if(Volume_input.value<500){
-            if(Volume_input.value<25){
-                current_vol_num.style.left=Volume_input.value/10+5+"%";
-            }
-            else{
-                current_vol_num.style.left=Volume_input.value/10+1+"%";
-            }
-        }
-        else{
-            if(Volume_input.value>75){
-                current_vol_num.style.left=Volume_input.value/10.5+"%";
-            }
-            else{
-                current_vol_num.style.left=Volume_input.value/10+"%";
-            }
-
-        }
-        current_vol_num.innerHTML=Math.floor(Volume_input.value/10);
-    },1)
+        let vol_current = Volume_input.value/1.18/10-100+"%"
+        current_volume.style.left=vol_current;
 });
-Volume_input.addEventListener('mouseout',()=>{
-    current_vol_num.style.display='none';
-})
-
 // Controlling Volume from the input tag 
+Volume_input.addEventListener('change',Volume_change = ()=>{
+    All_songs[i].volume=Volume_input.value/1000;
+});
 Volume_input.addEventListener('mousemove',Volume_change = ()=>{
     All_songs[i].volume=Volume_input.value/1000;
 });
 Volume_change();
-
 // Hide Navigation Bar when srolling down 
-
 let hide_after_scroll = 0;
 window.addEventListener('scroll',()=>{
     let Navigation_cont = document.getElementsByClassName('nav_container')[0];
@@ -968,13 +964,13 @@ window.addEventListener('scroll',()=>{
     }
     hide_after_scroll=scrolling_window;
 });
+
 // when click on this button 
 let mini_view_btn = document.getElementById('mini_view');
 // These elements will be hide 
 let audio_vol_sect = document.getElementsByClassName('Audio_player_volume_Section')[0];
 let artist_div = document.getElementsByClassName('Audio_player_artist_div')[0];
 let Song_img = document.getElementsByClassName('Audio_player_song_icon_div')[0];
-let Repeat_button = document.getElementsByClassName('Repeat_button_div')[0];
 let Shuffle_button = document.getElementsByClassName('shuffle_button_div')[0];
 let song_duration_sect = document.getElementsByClassName('Song_Duration_section')[0];
 let Playing_sect = document.getElementsByClassName('Audio_player_playing_section')[0];
@@ -983,11 +979,14 @@ let hide_in_mini = [audio_vol_sect,artist_div,Song_img,Repeat_button,Shuffle_but
 // changing css 
 let audio_box = document.getElementsByClassName('Audio_player_box')[0];
 
+let hide_audio_box_btn = document.getElementById('hide_sm_audio');
 // Change audio box to small 
 mini_view_btn.addEventListener('click',()=>{
         for (element of hide_in_mini){
             element.style.display='none';
        }
+       Song_name_div.style.width='100%';
+       hide_audio_box_btn.style.display='flex';
        Playing_sect.width='100%';
        audio_box.style.borderRadius='5px';
        audio_box.style.flexDirection='column';
@@ -998,6 +997,7 @@ Song_name_div.addEventListener('click',()=>{
         for (element of hide_in_mini){
             element.style.display='';
        }
+       hide_audio_box_btn.style.display='none';
        Playing_sect.width='570px';
        audio_box.style.flexDirection='row';
        audio_box.style.borderRadius='0px';
@@ -1005,7 +1005,6 @@ Song_name_div.addEventListener('click',()=>{
 });
 // Ends 
 // Hide Small Audio Box with arrow button
-let hide_audio_box_btn = document.getElementById('hide_sm_audio');
 let small_audio_box_is_hide = false;
 hide_audio_box_btn.addEventListener('click',()=>{
     audio_cont.style.transition=' right .3s ease';
@@ -1021,13 +1020,12 @@ hide_audio_box_btn.addEventListener('click',()=>{
     }
     
 });
-
-let listen_now_btn = document.getElementById('listen_now_btn');
-  audio_cont.style.opacity='0';
-listen_now_btn.addEventListener('click',()=>{
-    audio_cont.style.opacity='1';
-    audio_cont.style.transition='opacity .3s ease';
-   setTimeout(() => {
-    audio_cont.style.display='flex';
-    }, 1);
-});
+// // Show Audio Container with Listen Button 
+// let listen_now_btn = document.getElementById('listen_now_btn');
+// listen_now_btn.addEventListener('click',()=>{
+//     audio_cont.style.opacity='1';
+//     audio_cont.style.transition='opacity .3s ease';
+//    setTimeout(() => {
+//     audio_cont.style.display='flex';
+//     }, 1);
+// });
