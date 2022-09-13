@@ -48,15 +48,11 @@ html {
   --Song_icon_overlay-: rgba(255, 255, 255, 0.849);
   --Song_name_overlay-: rgba(10, 10, 10, 0.163);
   --Song_name_color-: white;
-  --Song_name_font_size-: 1.3rem;
   --Artist_name_color-: white;
-  --Artist_name_font_size-: 1rem;
   --song_artist_box_bg-: rgb(3, 73, 134);
   --buttons_hover_bg-: rgba(39, 39, 39, 0.3);
   --Play_pause_hover_bg-: rgba(5, 5, 5, 0.335);
   --Song_total_current_duration-: white;
-  --Song_total_current_duration_font-: .8rem;
-  --Song_Tool_tip_font-: .8rem;
   --Playing_btns_tool_tip-: rgb(0, 0, 0);
   --Playing_btns_tool_tip_bg-: rgb(245, 191, 74);
   --Slider_track_background-: white;
@@ -67,7 +63,11 @@ html {
   --Vol_range_active-: rgb(105, 5, 237);
   --Mini_view_borders-: white;
   --Audio_player_three_dots-: white;
-  --Volume_in_numbers_font-: 1rem;
+  --Song_name_font_size-: 20px;
+  --Artist_name_font_size-: 16px;
+  --Volume_in_numbers_font-: 16px;
+  --Song_Tool_tip_font-: 13px;
+  --Song_total_current_duration_font-: 13px;
 
 }
 /* These Variables are for Side menu  */
@@ -1386,40 +1386,16 @@ html {
   margin-top: 30px;
 }
 /* All Comparison Boxes  */
-.Basic_plan_box {
+.Basic_plan_box,.Standard_plan_box,.Premium_plan_box {
   min-height: 560px;
   width: 325px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   background-color: white;
   border-radius: 3px;
   box-shadow: 0 0 10px rgba(181, 180, 180, 0.28);
 }
-.Standard_plan_box {
-  min-height: 560px;
-  width: 325px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  border-radius: 3px;
-  box-shadow: 0 0 10px rgba(181, 180, 180, 0.28);
-}
-.Premium_plan_box {
-  min-height: 560px;
-  width: 325px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  border-radius: 3px;
-  box-shadow: 0 0 10px rgba(181, 180, 180, 0.28);
-}
-
 /* All Comparison Boxes Heading Div */
 .basic_comparison_div {
   min-height: 100px;
@@ -1460,11 +1436,16 @@ html {
   position: relative;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgba(200, 200, 200, 0.3);
+}
+.skipped_features_bg{
+  background-color: rgba(255, 192, 192, 0.3);
+}
+.available_features_bg{
+  background-color: rgba(159, 255, 172, 0.3);
 }
 .feature_text {
   position: absolute;
-  left: 35%;
+  left: 30%;
 }
 
 /* Tik button  */
@@ -1480,8 +1461,8 @@ html {
   width: 28px;
   background-color: var(--tik_backgorund-);
   position: absolute;
-  top: 30%;
-  left: 55%;
+  top: 33.9%;
+  left: 53%;
   transform: rotate(-45deg) translate(-50%, -50%);
   border-radius: 0px 3px 3px 0px;
 }
@@ -1492,7 +1473,7 @@ html {
   position: absolute;
   top: 80%;
   left: 20%;
-  transform: rotate(50deg) translate(-50%, -50%);
+  transform: rotate(45deg) translate(-50%, -50%);
   border-radius: 3px 0px 0px 3px;
 }
 /* Ends  */
@@ -1613,8 +1594,6 @@ html {
   position: absolute;
   bottom: 0;
   left: 0;
-  opacity: 0;
-  display: none;
   position: fixed;
 }
 
@@ -1631,17 +1610,17 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: max-content;
+  width: 30%;
   height: 100px;
 }
 .Audio_player_song_icon_div {
   height: 100px;
-  width: 100px;
+  width: 25%;
 }
 
 .song_icon_background {
   height: 100px;
-  width: 100px;
+  width: 100%;
   background-color: var(--Song_icon_profile-);
   cursor: pointer;
   display: flex;
@@ -1683,7 +1662,7 @@ html {
 /* Song Name & Artist  */
 .Audio_player_song_name_artist_div {
   height: 100px;
-  width: 270px;
+  width: 75%;
   background-color: var(--Audio_Player_Box_background-);
 }
 
@@ -1751,7 +1730,7 @@ html {
 /* Playing Section  */
 .Audio_player_playing_section {
   height: 100px;
-  width: 570px;
+  width: 40%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -1979,17 +1958,13 @@ html {
   align-items: center;
   display: none;
 }
-
-.Repeat_button_div:hover{
-  background-color: var(--buttons_hover_bg-);
-}
 .Repeat_btn{
   width: 20px;
 }
                       /* Duration Section   */
 .Song_Duration_section{
   height: 30%;
-  width: 511px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2028,7 +2003,7 @@ html {
   position: relative;
 }
 #Song_input_range{
-  width: 400px;
+  width: 100%;
   -webkit-appearance: none;
   height: 30px;
   outline: none;
@@ -2091,7 +2066,7 @@ html {
 }
                   /* Volume_section  */
 .Audio_player_volume_Section{
-  width: 417px;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2112,6 +2087,7 @@ html {
   width: 70%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 /* Volume Input Tag  */
 .volume_input{
@@ -2130,7 +2106,7 @@ html {
   cursor: pointer;
 }
 #volume_input:active#volume_input::-webkit-slider-thumb{
-  border: 3.4px solid var(--Vol_range_active-);
+  border: 3.4px solid white;
   height: 16px;
   width: 16px;
   background: white;
@@ -2151,17 +2127,18 @@ html {
   content: "";
   position: absolute;
   top: 50%;
-  left: 0%;
+  left: -66.11%;
   transform: translateY(-50%);
   height: 3px;
-  width: 34%;
+  width: 100%;
   cursor: pointer;
-  background:  var(--Vol_range_active-);
+  background:  rgb(0, 0, 0);
+  border-radius: 50px;
 }
 
-#volume_input:hover::-webkit-slider-thumb{
-  border: 3.4px solid var(--Vol_Thumb_Hover_border-);
-}
+  #volume_input:hover::-webkit-slider-thumb{
+    border: 3.4px solid var(--Vol_Thumb_Hover_border-);
+  }
 #volume_input::-moz-range-track {
   width: 100%;
   height: 2px;
@@ -2272,6 +2249,7 @@ html {
   position: absolute;
   top: 42%;
   left: -10%;
+  display: none;
   background-color: rgba(217, 217, 217, 0.939);
 }
 .hide_first_arr,.hide_second_arr{
